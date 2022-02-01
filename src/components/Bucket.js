@@ -1,12 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import UploadObject from "./UploadObject";
 
 const Bucket = (props) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showUploadObject, setShowUploadObject] = useState(false);
+  const [bucket, setBucket] = useState();
+  const [objects, setObjects] = useState([]);
+  const [file, setFile] = useState(null);
   let navigate = useNavigate();
   const location = useLocation();
-  const { bucket } = location.state;
+  const { bucketid } = location.state;
+
+  const toggleShowUploadObject = () => {
+    setShowUploadObject(!showUploadObject);
+  };
+
+  const getBucket = async () => {
+    const headers = {
+      Authorization: "Token " + "79a700aa-428b-4dcc-b8c4-27a25eabc619",
+    };
+
+    const response = await axios.get(`/buckets/${bucketid}`, {
+      headers: headers,
+    });
+
+    setBucket(response.data.bucket);
+    props.getAllBuckets();
+  };
+
+  const getObjects = async (bucketid) => {
+    const headers = {
+      Authorization: "Token " + "79a700aa-428b-4dcc-b8c4-27a25eabc619",
+    };
+
+    const response = await axios.get(`/buckets/${bucketid}/objects`, {
+      headers: headers,
+    });
+
+    setObjects(response.data.objects);
+    props.getAllBuckets();
+  };
 
   const deleteBucket = () => {
     const headers = {
@@ -21,8 +56,17 @@ const Bucket = (props) => {
     navigate("/");
   };
 
+  // on component mount
+  useEffect(() => {
+    getBucket();
+    getObjects();
+    console.log(objects);
+  }, []);
+
   return (
     <div>
+      <h2>{bucket && bucket.name}</h2>
+      {showUploadObject && <UploadObject bucket={bucket} />}
       <ul className="nav nav-tabs">
         <li>
           <div
@@ -59,11 +103,18 @@ const Bucket = (props) => {
         </div>
       ) : (
         <div className="bg-white p-3 tab-content">
-          <h3>Files</h3>
-          <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
-          </p>
+          <div className="d-flex justify-content-between">
+            <p>All Files ({objects && objects.length})</p>
+            <div className="d-flex justify-content-end">
+              <button className="btn btn-danger btn-sm">Delete Object</button>
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={toggleShowUploadObject}
+              >
+                Upload object
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

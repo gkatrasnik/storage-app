@@ -27,7 +27,11 @@ const AllBuckets = (props) => {
             <div className="table-body">
               {props.buckets &&
                 props.buckets.map((bucket) => (
-                  <Link to="/bucket" state={{ bucket: bucket }} key={bucket.id}>
+                  <Link
+                    to="/bucket"
+                    state={{ bucketid: bucket.id }}
+                    key={bucket.id}
+                  >
                     <div className="d-flex">
                       <div className="col">{bucket.name}</div>
                       <div className="col">{bucket.location.name}</div>
