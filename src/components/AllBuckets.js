@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-
+import { Link } from "react-router-dom";
+import Bucket from "./Bucket";
 const AllBuckets = (props) => {
   return (
     <>
@@ -19,25 +19,23 @@ const AllBuckets = (props) => {
           </button>
         </div>
         <div className="m-2">
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Location</th>
-              </tr>
-            </thead>
-            <tbody>
+          <div class="table">
+            <div class="d-flex">
+              <div className="col">Name</div>
+              <div className="col">Location</div>
+            </div>
+            <div className="table-body">
               {props.buckets &&
                 props.buckets.map((bucket) => (
-                  <tr key={bucket.id} bucket={bucket}>
-                    <Link to="/bucket" state={{ bucket: bucket }}>
-                      <td>{bucket.name}</td>
-                      <td>{bucket.location.name}</td>
-                    </Link>
-                  </tr>
+                  <Link to="/bucket" state={{ bucket: bucket }} key={bucket.id}>
+                    <div className="d-flex">
+                      <div className="col">{bucket.name}</div>
+                      <div className="col">{bucket.location.name}</div>
+                    </div>
+                  </Link>
                 ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -34,7 +34,7 @@ const CreateNewBucket = (props) => {
       Authorization: "Token " + "79a700aa-428b-4dcc-b8c4-27a25eabc619",
     };
 
-    const response = await axios.post(
+    await axios.post(
       "/buckets",
       {
         name: newBucketName,
@@ -45,9 +45,9 @@ const CreateNewBucket = (props) => {
       }
     );
 
-    console.log(response);
     setNewBucketName("");
     setNewLocation("");
+    props.getAllBuckets();
   };
 
   useEffect(() => {
@@ -86,8 +86,8 @@ const CreateNewBucket = (props) => {
           type="button"
           className="btn btn-primary btn-sm m-2 small-button"
           onClick={() => {
+            props.handleShowAddBucket();
             postNewBucket();
-            props.handleShowAddBucket;
           }}
         >
           Create Bucket

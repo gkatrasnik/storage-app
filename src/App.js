@@ -5,6 +5,7 @@ import CreateNewBucket from "./components/CreateNewBucket";
 import AllBuckets from "./components/AllBuckets";
 import Bucket from "./components/Bucket";
 import { Route, Routes, HashRouter } from "react-router-dom";
+import axios from "axios";
 
 const App = () => {
   const [showAddBucket, setShowAddBucket] = useState(false);
@@ -32,7 +33,12 @@ const App = () => {
 
   return (
     <div className="container">
-      {showAddBucket && <CreateNewBucket />}
+      {showAddBucket && (
+        <CreateNewBucket
+          handleShowAddBucket={handleShowAddBucket}
+          getAllBuckets={getAllBuckets}
+        />
+      )}
       <HashRouter>
         <Routes>
           <Route
@@ -44,7 +50,10 @@ const App = () => {
               />
             }
           />
-          <Route path="/bucket" element={<Bucket />} />
+          <Route
+            path="/bucket"
+            element={<Bucket getAllBuckets={getAllBuckets} />}
+          />
         </Routes>
       </HashRouter>
     </div>
