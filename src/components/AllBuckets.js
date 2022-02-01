@@ -4,7 +4,7 @@ import Bucket from "./Bucket";
 const AllBuckets = (props) => {
   return (
     <>
-      <h2>Bucket list</h2>
+      <h2 className="my-3">Bucket list</h2>
       <div className="d-flex flex-column bg-white p-2">
         <div className="d-flex justify-content-between">
           <p className="section-text">

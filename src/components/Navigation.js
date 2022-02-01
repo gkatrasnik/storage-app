@@ -1,9 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
     <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand mx-4">Secure Cloud Storage</a>
+      <Link to="/" class="navbar-brand mx-4">
+        Secure Cloud Storage
+      </Link>
     </nav>
   );
 };

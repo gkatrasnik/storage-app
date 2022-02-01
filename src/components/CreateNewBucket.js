@@ -20,10 +20,6 @@ const CreateNewBucket = (props) => {
     setNewLocation(data.locations[0].id);
   };
 
-  useEffect(() => {
-    getLocationsList();
-  }, []);
-
   const postNewBucket = async () => {
     if (!newBucketName || !newLocation) {
       return alert("Bucket name and location is needed!");
@@ -44,14 +40,17 @@ const CreateNewBucket = (props) => {
         headers: headers,
       }
     );
-
+    props.getAllBuckets();
     setNewBucketName("");
     setNewLocation("");
-    props.getAllBuckets();
   };
 
   useEffect(() => {
     getLocationsList();
+    return () => {
+      setNewBucketName("");
+      setNewLocation("");
+    }; // This worked for me
   }, []);
 
   return (

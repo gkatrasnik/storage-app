@@ -33,7 +33,7 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <HashRouter>
       <Navigation />
       <div className="container">
         {showAddBucket && (
@@ -42,25 +42,23 @@ const App = () => {
             getAllBuckets={getAllBuckets}
           />
         )}
-        <HashRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <AllBuckets
-                  buckets={buckets}
-                  handleShowAddBucket={handleShowAddBucket}
-                />
-              }
-            />
-            <Route
-              path="/bucket"
-              element={<Bucket getAllBuckets={getAllBuckets} />}
-            />
-          </Routes>
-        </HashRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AllBuckets
+                buckets={buckets}
+                handleShowAddBucket={handleShowAddBucket}
+              />
+            }
+          />
+          <Route
+            path="/bucket"
+            element={<Bucket getAllBuckets={getAllBuckets} />}
+          />
+        </Routes>
       </div>
-    </>
+    </HashRouter>
   );
 };
 
