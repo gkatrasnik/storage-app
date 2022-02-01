@@ -10,6 +10,7 @@ const Bucket = (props) => {
   const [bucket, setBucket] = useState();
   const [objects, setObjects] = useState([]);
   const [selectedObject, setSelectedObject] = useState();
+  const [objectsSize, setOjbectsSize] = useState(0);
 
   let navigate = useNavigate();
   const location = useLocation();
@@ -42,7 +43,13 @@ const Bucket = (props) => {
     });
 
     setObjects(response.data.objects);
-    console.log("bucket objects", response.data.objects);
+
+    let objectsSize = 0;
+    for (let i = 0; i < response.data.objects.length; i++) {
+      objectsSize += response.data.objects[i].size;
+    }
+    setOjbectsSize(objectsSize);
+
     props.getAllBuckets();
   };
 
@@ -56,6 +63,7 @@ const Bucket = (props) => {
     });
 
     props.getAllBuckets();
+
     navigate("/");
   };
 
@@ -116,7 +124,7 @@ const Bucket = (props) => {
             <div className="col">
               <p>Bucket name: {bucket.name}</p>
               <p>Location: {bucket.location.name}</p>
-              <p> Storage size: bucket size</p>
+              <p> Storage size: {objectsSize}</p>
             </div>
             <div className="col d-flex justify-content-end align-items-start">
               <button className="btn btn-danger btn-sm " onClick={deleteBucket}>
@@ -145,7 +153,7 @@ const Bucket = (props) => {
             </div>
           </div>
 
-          <div className="table-body">
+          <div className="table-body my-3">
             {objects &&
               objects.map((object) => (
                 <div

@@ -43,6 +43,7 @@ const CreateNewBucket = (props) => {
     props.getAllBuckets();
     setNewBucketName("");
     setNewLocation("");
+    props.handleShowAddBucket();
   };
 
   useEffect(() => {
@@ -57,6 +58,12 @@ const CreateNewBucket = (props) => {
     <div>
       <p className="section-text">Create New Bucket</p>
       <div className="d-flex flex-column bg-white p-2">
+        <button
+          type="button"
+          class="btn-close align-self-end"
+          aria-label="Close"
+          onClick={props.handleShowAddBucket}
+        ></button>
         <div className="row">
           <div class="col d-flex flex-column m-2">
             Bucket Name*
@@ -85,7 +92,6 @@ const CreateNewBucket = (props) => {
           type="button"
           className="btn btn-primary btn-sm m-2 small-button"
           onClick={() => {
-            props.handleShowAddBucket();
             postNewBucket();
           }}
         >
