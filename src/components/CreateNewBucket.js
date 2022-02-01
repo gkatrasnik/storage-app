@@ -71,7 +71,11 @@ const CreateNewBucket = (props) => {
             <select onChange={(e) => setNewLocation(e.target.value)}>
               {locationsList &&
                 locationsList.map((location, index) => (
-                  <option key={index} location={location} value={location.id}>
+                  <option
+                    key={location.id}
+                    location={location}
+                    value={location.id}
+                  >
                     {location.name}
                   </option>
                 ))}
