@@ -15,7 +15,6 @@ const CreateNewBucket = (props) => {
       },
     });
     const { data } = await response;
-    console.log(data);
     setLocationsList(data.locations);
     setNewLocation(data.locations[0].id);
   };

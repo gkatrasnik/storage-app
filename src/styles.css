@@ -26,6 +26,14 @@ a:hover {
   margin: 0 0 0 2rem;
 }
 
+.bg-grey {
+  background-color: lightgrey;
+}
+
+.border-bottom-black {
+  border-bottom: 2px solid black;
+}
+
 .tab {
   cursor: pointer;
 }

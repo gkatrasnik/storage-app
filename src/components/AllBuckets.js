@@ -20,7 +20,7 @@ const AllBuckets = (props) => {
         </div>
         <div className="m-2">
           <div class="table">
-            <div class="d-flex">
+            <div class="d-flex bg-grey">
               <div className="col">Name</div>
               <div className="col">Location</div>
             </div>

@@ -24,7 +24,6 @@ const App = () => {
     });
 
     const { data } = await response;
-    console.log(data.buckets);
     setBuckets(data.buckets);
   };
 

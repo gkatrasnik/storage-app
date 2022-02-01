@@ -69,7 +69,6 @@ const Bucket = (props) => {
 
   const handleSelectObject = (object) => {
     setSelectedObject(object.name);
-    console.log(object.name);
   };
   // on component mount
   useEffect(() => {
@@ -153,11 +152,16 @@ const Bucket = (props) => {
             </div>
           </div>
 
-          <div className="table-body my-3">
+          <div className="my-3 table">
+            <div class="d-flex border-bottom-black bg-grey">
+              <div className="col">Name</div>
+              <div className="col">Location</div>
+              <div className="col">Size</div>
+            </div>
             {objects &&
               objects.map((object) => (
                 <div
-                  className="d-flex object-item"
+                  className="d-flex object-item border-0"
                   key={object.last_modified}
                   onClick={(e) => {
                     handleSelectObject(object);

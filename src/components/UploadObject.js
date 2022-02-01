@@ -34,7 +34,6 @@ const UploadObject = (props) => {
         type="file"
         onChange={(e) => {
           setFile(e.target.files[0]);
-          console.log(e.target.files[0]);
         }}
       />
       <button type="submit">Upload</button>
