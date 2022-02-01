@@ -9,7 +9,6 @@ const Bucket = (props) => {
   const [showUploadObject, setShowUploadObject] = useState(false);
   const [bucket, setBucket] = useState();
   const [objects, setObjects] = useState([]);
-  const [selectedObject, setSelectedObject] = useState();
   const [objectsSize, setOjbectsSize] = useState(0);
 
   let navigate = useNavigate();
@@ -44,6 +43,7 @@ const Bucket = (props) => {
 
     setObjects(response.data.objects);
 
+    //calculate storage size
     let objectsSize = 0;
     for (let i = 0; i < response.data.objects.length; i++) {
       objectsSize += response.data.objects[i].size;
@@ -67,26 +67,24 @@ const Bucket = (props) => {
     navigate("/");
   };
 
-  const handleSelectObject = (object) => {
-    setSelectedObject(object.name);
+  const deleteObject = (objectname) => {
+    const headers = {
+      Authorization: "Token " + "79a700aa-428b-4dcc-b8c4-27a25eabc619",
+    };
+
+    axios
+      .delete(`/buckets/${bucket.id}/objects/${objectname}`, {
+        headers: headers,
+      })
+      .then(getObjects());
+    setShowDetails(false);
   };
+
   // on component mount
   useEffect(() => {
     getBucket();
     getObjects();
   }, []);
-
-  const deleteObject = () => {
-    const headers = {
-      Authorization: "Token " + "79a700aa-428b-4dcc-b8c4-27a25eabc619",
-    };
-
-    axios.delete(`/buckets/${bucket.id}/objects${selectedObject.name}`, {
-      headers: headers,
-    });
-
-    getObjects();
-  };
 
   return (
     <div>
@@ -138,12 +136,6 @@ const Bucket = (props) => {
             <p>All Files ({objects && objects.length})</p>
             <div className="d-flex justify-content-end">
               <button
-                className="btn btn-danger btn-sm mx-2"
-                onClick={deleteObject}
-              >
-                Delete Object
-              </button>
-              <button
                 className="btn btn-primary btn-sm"
                 onClick={toggleShowUploadObject}
               >
@@ -163,14 +155,18 @@ const Bucket = (props) => {
                 <div
                   className="d-flex align-items-center object-item border-0 p-2"
                   key={object.last_modified}
-                  onClick={(e) => {
-                    handleSelectObject(object);
-                  }}
+                  object={object}
                 >
                   <i class="fas fa-file mx-2"></i>
                   <div className="col">{object.name}</div>
-                  <div className="col">{object.last_modified}</div>
-                  <div className="col">{object.size}</div>
+                  <div className="col px-5">{object.last_modified}</div>
+                  <div className="col ">{object.size}</div>
+                  <button
+                    className="btn btn-danger btn-sm mx-3"
+                    onClick={() => deleteObject(object.name)}
+                  >
+                    Delete
+                  </button>
                 </div>
               ))}
           </div>
