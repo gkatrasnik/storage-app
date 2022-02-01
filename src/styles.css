@@ -1,0 +1,14 @@
+html {
+  background-color: rgb(240, 240, 240);
+}
+body {
+  background-color: rgb(240, 240, 240);
+}
+
+.small-button {
+  max-width: 8rem;
+}
+
+.create-new-bucket-heading {
+  margin: 0 0 0 2rem;
+}
