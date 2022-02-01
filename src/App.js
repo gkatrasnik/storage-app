@@ -5,7 +5,7 @@ import CreateNewBucket from "./components/CreateNewBucket";
 import AllBuckets from "./components/AllBuckets";
 
 const App = () => {
-  const [showAddBucket, setShowAddBucket] = useState(true);
+  const [showAddBucket, setShowAddBucket] = useState(false);
 
   const handleShowAddBucket = () => {
     setShowAddBucket(!showAddBucket);
