@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import CreateNewBucket from "./components/CreateNewBucket";
 import AllBuckets from "./components/AllBuckets";
 import Bucket from "./components/Bucket";
+import Navigation from "./components/Navigation";
 import { Route, Routes, HashRouter } from "react-router-dom";
 import axios from "axios";
 
@@ -32,31 +33,34 @@ const App = () => {
   }, []);
 
   return (
-    <div className="container">
-      {showAddBucket && (
-        <CreateNewBucket
-          handleShowAddBucket={handleShowAddBucket}
-          getAllBuckets={getAllBuckets}
-        />
-      )}
-      <HashRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <AllBuckets
-                buckets={buckets}
-                handleShowAddBucket={handleShowAddBucket}
-              />
-            }
+    <>
+      <Navigation />
+      <div className="container">
+        {showAddBucket && (
+          <CreateNewBucket
+            handleShowAddBucket={handleShowAddBucket}
+            getAllBuckets={getAllBuckets}
           />
-          <Route
-            path="/bucket"
-            element={<Bucket getAllBuckets={getAllBuckets} />}
-          />
-        </Routes>
-      </HashRouter>
-    </div>
+        )}
+        <HashRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <AllBuckets
+                  buckets={buckets}
+                  handleShowAddBucket={handleShowAddBucket}
+                />
+              }
+            />
+            <Route
+              path="/bucket"
+              element={<Bucket getAllBuckets={getAllBuckets} />}
+            />
+          </Routes>
+        </HashRouter>
+      </div>
+    </>
   );
 };
 

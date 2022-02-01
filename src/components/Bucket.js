@@ -65,7 +65,7 @@ const Bucket = (props) => {
 
   return (
     <div>
-      <h2>{bucket && bucket.name}</h2>
+      <h2 className="my-3">{bucket && bucket.name}</h2>
       {showUploadObject && <UploadObject bucket={bucket} />}
       <ul className="nav nav-tabs">
         <li>
@@ -95,7 +95,7 @@ const Bucket = (props) => {
               <p> Storage size: bucket size</p>
             </div>
             <div className="col d-flex justify-content-end align-items-start">
-              <button className="btn btn-danger btn-sm" onClick={deleteBucket}>
+              <button className="btn btn-danger btn-sm " onClick={deleteBucket}>
                 Delete bucket
               </button>
             </div>
@@ -106,7 +106,9 @@ const Bucket = (props) => {
           <div className="d-flex justify-content-between">
             <p>All Files ({objects && objects.length})</p>
             <div className="d-flex justify-content-end">
-              <button className="btn btn-danger btn-sm">Delete Object</button>
+              <button className="btn btn-danger btn-sm mx-2">
+                Delete Object
+              </button>
               <button
                 className="btn btn-primary btn-sm"
                 onClick={toggleShowUploadObject}
