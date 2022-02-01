@@ -33,6 +33,11 @@ a:hover {
   border: none;
 }
 
-.tab-content {
+.white-content-div {
   min-height: 15rem;
+}
+
+.object-item:hover {
+  background-color: rgb(230, 230, 230);
+  cursor: pointer;
 }
