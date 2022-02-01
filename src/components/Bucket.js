@@ -161,7 +161,7 @@ const Bucket = (props) => {
             {objects &&
               objects.map((object) => (
                 <div
-                  className="d-flex object-item border-0"
+                  className="d-flex object-item border-0 p-2"
                   key={object.last_modified}
                   onClick={(e) => {
                     handleSelectObject(object);
