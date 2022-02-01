@@ -20,9 +20,9 @@ const AllBuckets = (props) => {
         </div>
         <div className="m-2">
           <div class="table">
-            <div class="d-flex bg-grey">
-              <div className="col">Name</div>
-              <div className="col">Location</div>
+            <div class="d-flex bg-grey px-2">
+              <div className="col ">Name</div>
+              <div className="col ">Location</div>
             </div>
             <div className="table-body">
               {props.buckets &&
@@ -32,7 +32,8 @@ const AllBuckets = (props) => {
                     state={{ bucketid: bucket.id }}
                     key={bucket.id}
                   >
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center ">
+                      <i class="fas fa-folder mx-2"></i>
                       <div className="col">{bucket.name}</div>
                       <div className="col">{bucket.location.name}</div>
                     </div>

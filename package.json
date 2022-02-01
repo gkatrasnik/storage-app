@@ -37,6 +37,7 @@
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "babel-loader": "^8.2.3",
     "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.68.0",

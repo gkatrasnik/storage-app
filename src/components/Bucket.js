@@ -153,20 +153,21 @@ const Bucket = (props) => {
           </div>
 
           <div className="my-3 table">
-            <div class="d-flex border-bottom-black bg-grey">
+            <div class="d-flex border-bottom-black bg-grey px-2">
               <div className="col">Name</div>
-              <div className="col">Location</div>
+              <div className="col">Last modified</div>
               <div className="col">Size</div>
             </div>
             {objects &&
               objects.map((object) => (
                 <div
-                  className="d-flex object-item border-0 p-2"
+                  className="d-flex align-items-center object-item border-0 p-2"
                   key={object.last_modified}
                   onClick={(e) => {
                     handleSelectObject(object);
                   }}
                 >
+                  <i class="fas fa-file mx-2"></i>
                   <div className="col">{object.name}</div>
                   <div className="col">{object.last_modified}</div>
                   <div className="col">{object.size}</div>
