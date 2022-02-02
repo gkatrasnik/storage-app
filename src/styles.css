@@ -49,3 +49,7 @@ a:hover {
   background-color: rgb(230, 230, 230);
   cursor: pointer;
 }
+
+.top-30 {
+  top: 30%;
+}

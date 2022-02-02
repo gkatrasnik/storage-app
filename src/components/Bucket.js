@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import UploadObject from "./UploadObject";
 import moment from "moment";
+import DeleteBucketPrompt from "./DeleteBucketPrompt";
+import DeleteObjectPrompt from "./DeleteObjectPrompt";
 
 const Bucket = (props) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -10,6 +12,9 @@ const Bucket = (props) => {
   const [bucket, setBucket] = useState();
   const [objects, setObjects] = useState([]);
   const [objectsSize, setOjbectsSize] = useState(0);
+  const [showDeleteBucketPrompt, setShowDeleteBucketPrompt] = useState(false);
+  const [showDeleteObjectPrompt, setShowDeleteObjectPrompt] = useState(false);
+  const [currentObject, setCurrentObject] = useState();
 
   let navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +22,14 @@ const Bucket = (props) => {
 
   const toggleShowUploadObject = () => {
     setShowUploadObject(!showUploadObject);
+  };
+
+  const toggleShowDeleteBucketPrompt = () => {
+    setShowDeleteBucketPrompt(!showDeleteBucketPrompt);
+  };
+
+  const toggleShowDeleteObjectPrompt = () => {
+    setShowDeleteObjectPrompt(!showDeleteObjectPrompt);
   };
 
   const getBucket = async () => {
@@ -77,6 +90,7 @@ const Bucket = (props) => {
         headers: headers,
       })
       .then(getObjects());
+    getBucket();
     setShowDetails(false);
   };
 
@@ -116,20 +130,31 @@ const Bucket = (props) => {
       </ul>
 
       {showDetails ? (
-        <div className="bg-white p-3 tab-content">
-          <div className="d-flex justify-content-between">
-            <div className="col">
-              <p>Bucket name: {bucket.name}</p>
-              <p>Location: {bucket.location.name}</p>
-              <p> Storage size: {objectsSize}</p>
-            </div>
-            <div className="col d-flex justify-content-end align-items-start">
-              <button className="btn btn-danger btn-sm " onClick={deleteBucket}>
-                Delete bucket
-              </button>
+        <>
+          {showDeleteBucketPrompt && (
+            <DeleteBucketPrompt
+              deleteBucket={deleteBucket}
+              toggleShowDeleteBucketPrompt={toggleShowDeleteBucketPrompt}
+            />
+          )}
+          <div className="bg-white p-3 tab-content">
+            <div className="d-flex justify-content-between">
+              <div className="col">
+                <p>Bucket name: {bucket.name}</p>
+                <p>Location: {bucket.location.name}</p>
+                <p> Storage size: {objectsSize}</p>
+              </div>
+              <div className="col d-flex justify-content-end align-items-start">
+                <button
+                  className="btn btn-danger btn-sm "
+                  onClick={toggleShowDeleteBucketPrompt}
+                >
+                  Delete bucket
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       ) : (
         <div className="bg-white p-3 tab-content">
           <div className="d-flex justify-content-between">
@@ -151,25 +176,34 @@ const Bucket = (props) => {
               <div className="col">Size</div>
             </div>
             {objects &&
-              objects.map((object) => (
+              objects.map((thisobject) => (
                 <div
                   className="d-flex align-items-center object-item border-0 p-2"
-                  key={object.last_modified}
-                  object={object}
+                  key={thisobject.last_modified}
                 >
                   <i class="fas fa-file mx-2"></i>
-                  <div className="col">{object.name}</div>
-                  <div className="col px-5">{object.last_modified}</div>
-                  <div className="col ">{object.size}</div>
+                  <div className="col">{thisobject.name}</div>
+                  <div className="col px-5">{thisobject.last_modified}</div>
+                  <div className="col ">{thisobject.size}</div>
                   <button
                     className="btn btn-danger btn-sm mx-3"
-                    onClick={() => deleteObject(object.name)}
+                    onClick={() => {
+                      setCurrentObject(thisobject);
+                      toggleShowDeleteObjectPrompt();
+                    }}
                   >
                     Delete
                   </button>
                 </div>
               ))}
           </div>
+          {showDeleteObjectPrompt && (
+            <DeleteObjectPrompt
+              currentObject={currentObject}
+              deleteObject={deleteObject}
+              toggleShowDeleteObjectPrompt={toggleShowDeleteObjectPrompt}
+            />
+          )}
         </div>
       )}
     </div>
